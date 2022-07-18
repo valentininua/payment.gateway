@@ -1,0 +1,13 @@
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+DDD+ES-test.iml
+.idea
+###> phpunit/phpunit ###
+/phpunit.xml
+clover.xml
+###< phpunit/phpunit ###
+db-data

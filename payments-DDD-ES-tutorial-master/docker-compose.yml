@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+    php:
+        build:
+            context: ./
+            dockerfile: Dockerfile.dev
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+        networks:
+          - all
+        container_name: payments-ddd-es-tutorial-php
+    mongo:
+        ports:
+          - "27017:27017"
+        image: mongo:latest
+        container_name: payments-ddd-es-tutorial-mongo
+        networks:
+          - all
+        volumes:
+          - ./db-data:/data/db
+
+networks:
+    all:

@@ -1,0 +1,33 @@
+imports:
+    - 'services_domain.yaml'
+
+parameters:
+
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    app.infrastructure.event.repository:
+        class: App\Infrastructure\Document\Event\MongoEventRepository
+        arguments:
+            - '@doctrine_mongodb'
+            - '@serializer'
+
+    app.infrastructure.command.handlers_manager:
+        class: App\Infrastructure\Cqrs\CommandHandlersManager
+
+    app.infrastructure.command.bus:
+        class: App\Infrastructure\Cqrs\CommandBus
+        arguments:
+            - '@app.infrastructure.command.handlers_manager'
+
+    property_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\PropertyNormalizer
+        public: false
+        tags: [serializer.normalizer]
